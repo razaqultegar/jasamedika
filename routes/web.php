@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
+use App\Http\Controllers\Auth\RegisteredUserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +15,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::middleware('guest')->group(function () {
+    Route::get('masuk', [AuthenticatedSessionController::class, 'create'])->name('signin');
+    Route::post('masuk', [AuthenticatedSessionController::class, 'store']);
+    Route::get('daftar', [RegisteredUserController::class, 'create'])->name('signup');
+    Route::post('daftar', [RegisteredUserController::class, 'store']);
 });
