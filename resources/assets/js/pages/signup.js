@@ -11,10 +11,7 @@ var SignUp = (function () {
 
         element.classList.add("is-invalid");
 
-        if (
-            !errorMessage ||
-            !errorMessage.classList.contains("invalid-feedback")
-        ) {
+        if (!errorMessage || !errorMessage.classList.contains("invalid-feedback")) {
             errorMessage = document.createElement("div");
             errorMessage.className = "invalid-feedback";
             parentDiv.insertAdjacentElement("afterend", errorMessage);
@@ -31,81 +28,54 @@ var SignUp = (function () {
         var parentDiv = element.closest(".form-floating");
         var errorElement = parentDiv.nextElementSibling;
 
-        if (
-            errorElement &&
-            errorElement.classList.contains("invalid-feedback")
-        ) {
+        if (errorElement && errorElement.classList.contains("invalid-feedback")) {
             errorElement.remove();
         }
     };
 
-    // Validate name
-    var validateName = function () {
-        var nameValue = name.value;
+    // Validate input
+    var validateInput = function (element, validator, message) {
+        var value = element.value;
 
-        if (nameValue === "") {
-            showError(name, "Nama lengkap tidak boleh kosong.");
+        if (value === "") {
+            showError(element, message.empty);
+        } else if (validator && !validator.test(value)) {
+            showError(element, message.invalid);
         } else {
-            removeError(name);
+            removeError(element);
         }
 
         checkFormValidity();
+    };
+
+    // Validate name
+    var validateName = function () {
+        validateInput(name, null, { empty: "Nama lengkap tidak boleh kosong." });
     };
 
     // Validate phone
     var validatePhone = function () {
         var phonePattern = /^[0-9]{10,15}$/;
-        var phoneValue = phone.value;
-
-        if (phoneValue === "") {
-            showError(phone, "Nomor telepon atau whatsapp tidak boleh kosong.");
-        } else if (!phonePattern.test(phoneValue)) {
-            showError(
-                phone,
-                "Hanya diisi dengan nomor telepon atau whatsapp yang valid."
-            );
-        } else {
-            removeError(phone);
-        }
-
-        checkFormValidity();
+        validateInput(phone, phonePattern, {
+            empty: "Nomor telepon atau whatsapp tidak boleh kosong.",
+            invalid: "Hanya diisi dengan nomor telepon atau whatsapp yang valid.",
+        });
     };
 
     // Validate password
     var validatePassword = function () {
-        var passwordValue = password.value;
-
-        if (passwordValue === "") {
-            showError(password, "Kata sandi tidak boleh kosong.");
-        } else {
-            removeError(password);
-        }
-
-        checkFormValidity();
+        validateInput(password, null, { empty: "Kata sandi tidak boleh kosong." });
     };
 
     // Check form validity
     var checkFormValidity = function () {
-        if (
-            phone.classList.contains("valid") &&
-            password.classList.contains("valid")
-        ) {
+        if (name.classList.contains("valid") && phone.classList.contains("valid") && password.classList.contains("valid")) {
             submitButton.removeAttribute("disabled");
-            submitButton.classList.remove(
-                "pointer-events-none",
-                "cursor-not-allowed",
-                "text-clrSubText",
-                "bg-coal"
-            );
+            submitButton.classList.remove("pointer-events-none", "cursor-not-allowed", "text-clrSubText", "bg-coal");
             submitButton.classList.add("text-white", "bg-clrPrimary");
         } else {
             submitButton.setAttribute("disabled", "disabled");
-            submitButton.classList.add(
-                "pointer-events-none",
-                "cursor-not-allowed",
-                "text-clrSubText",
-                "bg-coal"
-            );
+            submitButton.classList.add("pointer-events-none", "cursor-not-allowed", "text-clrSubText", "bg-coal");
             submitButton.classList.remove("text-white", "bg-clrPrimary");
         }
     };

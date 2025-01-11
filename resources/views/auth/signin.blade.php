@@ -67,6 +67,6 @@
             </div>
         </div>
         <script type="text/javascript" src="{{ asset('js/app.min.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('pages/signin.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('js/pages/signin.min.js') }}"></script>
     </body>
 </html>

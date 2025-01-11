@@ -41,7 +41,7 @@ mix.copyDirectory("resources/assets/medias", "public/medias");
 });
 
 // Build single page use scripts
-(glob.sync("resources/assets/pages/**/*.js") || []).forEach((file) => {
+(glob.sync("resources/assets/js/pages/**/*.js") || []).forEach((file) => {
     mix.scripts(file, `public/${file.replace("resources/assets/", "")
         .replace(".js", ".min.js")}`);
 });

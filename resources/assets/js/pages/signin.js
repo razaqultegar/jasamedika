@@ -11,10 +11,7 @@ var SignIn = (function () {
 
         element.classList.add("is-invalid");
 
-        if (
-            !errorMessage ||
-            !errorMessage.classList.contains("invalid-feedback")
-        ) {
+        if (!errorMessage || !errorMessage.classList.contains("invalid-feedback")) {
             errorMessage = document.createElement("div");
             errorMessage.className = "invalid-feedback";
             parentDiv.insertAdjacentElement("afterend", errorMessage);
@@ -31,10 +28,7 @@ var SignIn = (function () {
         var parentDiv = element.closest(".form-floating");
         var errorElement = parentDiv.nextElementSibling;
 
-        if (
-            errorElement &&
-            errorElement.classList.contains("invalid-feedback")
-        ) {
+        if (errorElement && errorElement.classList.contains("invalid-feedback")) {
             errorElement.remove();
         }
     };
@@ -47,10 +41,7 @@ var SignIn = (function () {
         if (phoneValue === "") {
             showError(phone, "Nomor telepon atau whatsapp tidak boleh kosong.");
         } else if (!phonePattern.test(phoneValue)) {
-            showError(
-                phone,
-                "Hanya diisi dengan nomor telepon atau whatsapp yang valid."
-            );
+            showError(phone, "Hanya diisi dengan nomor telepon atau whatsapp yang valid.");
         } else {
             removeError(phone);
         }
@@ -73,26 +64,13 @@ var SignIn = (function () {
 
     // Check form validity
     var checkFormValidity = function () {
-        if (
-            phone.classList.contains("valid") &&
-            password.classList.contains("valid")
-        ) {
+        if (phone.classList.contains("valid") && password.classList.contains("valid")) {
             submitButton.removeAttribute("disabled");
-            submitButton.classList.remove(
-                "pointer-events-none",
-                "cursor-not-allowed",
-                "text-clrSubText",
-                "bg-coal"
-            );
+            submitButton.classList.remove("pointer-events-none", "cursor-not-allowed", "text-clrSubText", "bg-coal");
             submitButton.classList.add("text-white", "bg-clrPrimary");
         } else {
             submitButton.setAttribute("disabled", "disabled");
-            submitButton.classList.add(
-                "pointer-events-none",
-                "cursor-not-allowed",
-                "text-clrSubText",
-                "bg-coal"
-            );
+            submitButton.classList.add("pointer-events-none", "cursor-not-allowed", "text-clrSubText", "bg-coal");
             submitButton.classList.remove("text-white", "bg-clrPrimary");
         }
     };

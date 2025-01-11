@@ -75,6 +75,6 @@
             </div>
         </div>
         <script type="text/javascript" src="{{ asset('js/app.min.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('pages/signup.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('js/pages/signup.min.js') }}"></script>
     </body>
 </html>
