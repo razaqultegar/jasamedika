@@ -26,3 +26,10 @@ Route::middleware('guest')->group(function () {
     Route::get('daftar', [RegisteredUserController::class, 'create'])->name('signup');
     Route::post('daftar', [RegisteredUserController::class, 'store']);
 });
+
+Route::middleware('auth')->group(function () {
+    Route::get('akun-saya/sunting', [AccountController::class, 'edit'])->name('account.edit');
+    Route::post('akun-saya/sunting', [AccountController::class, 'update']);
+
+    Route::get('keluar', [AuthenticatedSessionController::class, 'destroy'])->name('signout');
+});
