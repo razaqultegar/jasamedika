@@ -1,4 +1,7 @@
 const mix = require("laravel-mix");
+const glob = require("glob");
+const fs = require("fs");
+const path = require("path");
 
 /*
  |--------------------------------------------------------------------------
@@ -14,6 +17,7 @@ const mix = require("laravel-mix");
 // Globals
 mix.autoload({ jquery: ["$", "jQuery"] });
 mix.browserSync("127.0.0.1:8000").disableNotifications();
+mix.options({ cssNano: { discardComments: true } });
 
 // Build css/js
 mix.postCss("resources/assets/css/app.css", "public/css/app.min.css", [
@@ -22,3 +26,16 @@ mix.postCss("resources/assets/css/app.css", "public/css/app.min.css", [
 
 // Build medias
 mix.copyDirectory("resources/assets/medias", "public/medias");
+
+// Build third-party plugins
+(glob.sync("resources/assets/plugins/**/*.css") || []).forEach((file) => {
+    mix.postCss(file, `public/${file.replace("resources/assets/", "")
+        .replace(".css", ".min.css")}`);
+});
+
+(glob.sync("resources/assets/plugins/**/*.js.json") || []).forEach((file) => {
+    let filePaths = JSON.parse(fs.readFileSync(file, "utf-8"));
+    const fileName = path.basename(file).replace(".js.json", "");
+
+    mix.scripts(filePaths, `public/plugins/${fileName}/${fileName}.min.js`);
+});
