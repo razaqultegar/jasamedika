@@ -48,10 +48,10 @@ var EditAccount = (function () {
 
     // Check form validity
     var checkFormValidity = function () {
-        if (license.classList.contains("valid") && name.classList.contains("valid") && address.classList.contains("valid")) {
-            submitButton.removeAttribute("disabled");
-        } else {
+        if (license.classList.contains("is-invalid") || name.classList.contains("is-invalid") || address.classList.contains("is-invalid")) {
             submitButton.setAttribute("disabled", "disabled");
+        } else {
+            submitButton.removeAttribute("disabled");
         }
     };
 

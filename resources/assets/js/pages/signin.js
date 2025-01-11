@@ -9,6 +9,7 @@ var SignIn = (function () {
         var parentDiv = element.closest(".form-floating");
         var errorMessage = parentDiv.nextElementSibling;
 
+        element.classList.remove("valid");
         element.classList.add("is-invalid");
 
         if (!errorMessage || !errorMessage.classList.contains("invalid-feedback")) {
@@ -33,30 +34,16 @@ var SignIn = (function () {
         }
     };
 
-    // Validate phone
-    var validatePhone = function () {
-        var phonePattern = /^[0-9]{10,15}$/;
-        var phoneValue = phone.value;
+    // Validate input
+    var validateInput = function (element, validator, message) {
+        var value = element.value;
 
-        if (phoneValue === "") {
-            showError(phone, "Nomor telepon atau whatsapp tidak boleh kosong.");
-        } else if (!phonePattern.test(phoneValue)) {
-            showError(phone, "Hanya diisi dengan nomor telepon atau whatsapp yang valid.");
+        if (value === "") {
+            showError(element, message.empty);
+        } else if (validator && !validator.test(value)) {
+            showError(element, message.invalid);
         } else {
-            removeError(phone);
-        }
-
-        checkFormValidity();
-    };
-
-    // Validate password
-    var validatePassword = function () {
-        var passwordValue = password.value;
-
-        if (passwordValue === "") {
-            showError(password, "Kata sandi tidak boleh kosong.");
-        } else {
-            removeError(password);
+            removeError(element);
         }
 
         checkFormValidity();
@@ -64,38 +51,44 @@ var SignIn = (function () {
 
     // Check form validity
     var checkFormValidity = function () {
-        if (phone.classList.contains("valid") && password.classList.contains("valid")) {
-            submitButton.removeAttribute("disabled");
-            submitButton.classList.remove("pointer-events-none", "cursor-not-allowed", "text-clrSubText", "bg-coal");
-            submitButton.classList.add("text-white", "bg-clrPrimary");
-        } else {
-            submitButton.setAttribute("disabled", "disabled");
-            submitButton.classList.add("pointer-events-none", "cursor-not-allowed", "text-clrSubText", "bg-coal");
-            submitButton.classList.remove("text-white", "bg-clrPrimary");
-        }
-    };
+        var isValid = phone.classList.contains("valid") && password.classList.contains("valid");
 
-    // Toggle password visibility
-    var toggleVisibility = function () {
-        var eyeIcon = document.getElementById("eye");
-        var eyeOffIcon = document.getElementById("eye-off");
-
-        if (password.type === "password") {
-            password.type = "text";
-            eyeIcon.classList.add("hidden");
-            eyeOffIcon.classList.remove("hidden");
-        } else {
-            password.type = "password";
-            eyeIcon.classList.remove("hidden");
-            eyeOffIcon.classList.add("hidden");
-        }
+        submitButton.disabled = !isValid;
+        submitButton.classList.toggle("pointer-events-none", !isValid);
+        submitButton.classList.toggle("cursor-not-allowed", !isValid);
+        submitButton.classList.toggle("text-clrSubText", !isValid);
+        submitButton.classList.toggle("bg-coal", !isValid);
+        submitButton.classList.toggle("text-white", isValid);
+        submitButton.classList.toggle("bg-clrPrimary", isValid);
     };
 
     // Init forms
     var initForm = function () {
-        phone.addEventListener("input", validatePhone);
-        password.addEventListener("input", validatePassword);
-        visibility.addEventListener("click", toggleVisibility);
+        phone.addEventListener("input", function (e) {
+            e.preventDefault();
+
+            var phonePattern = /^[0-9]{10,15}$/;
+
+            validateInput(phone, phonePattern, {
+                empty: "Nomor telepon atau whatsapp tidak boleh kosong.",
+                invalid: "Hanya diisi dengan nomor telepon atau whatsapp yang valid.",
+            });
+        });
+        password.addEventListener("input", function (e) {
+            e.preventDefault();
+            validateInput(password, null, { empty: "Kata sandi tidak boleh kosong." });
+        });
+        visibility.addEventListener("click", function (e) {
+            e.preventDefault();
+
+            var eyeIcon = document.getElementById("eye");
+            var eyeOffIcon = document.getElementById("eye-off");
+            var isPasswordVisible = password.type === "password";
+
+            password.type = isPasswordVisible ? "text" : "password";
+            eyeIcon.classList.toggle("hidden", isPasswordVisible);
+            eyeOffIcon.classList.toggle("hidden", !isPasswordVisible);
+        });
     };
 
     return {
