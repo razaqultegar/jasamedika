@@ -11,6 +11,14 @@ const mix = require("laravel-mix");
  |
  */
 
+// Globals
+mix.autoload({ jquery: ["$", "jQuery"] });
+mix.browserSync("127.0.0.1:8000").disableNotifications();
+
+// Build css/js
 mix.postCss("resources/assets/css/app.css", "public/css/app.min.css", [
     require("tailwindcss"),
 ]).scripts(require("./resources/assets/js/app.js"), "public/js/app.min.js");
+
+// Build medias
+mix.copyDirectory("resources/assets/medias", "public/medias");
