@@ -2,13 +2,12 @@
 
 @section('content')
 <div class="-mx-4 mb-56">
-    @if (count($cars) > 0)
     <div class="text-center mt-3 mb-7 ">
         <div>
-            <p>Total Reservasimu</p>
+            <p>Total Pemesanan</p>
         </div>
         <div class="flex-grow-1 flex-shrink-1">
-            <span class="fs-12 fw-bold">{{ count($cars) }}</span>
+            <span class="text-2xl font-bold leading-none">{{ count($cars) }}</span>
         </div>
     </div>
     <div class="history">
@@ -40,12 +39,5 @@
             @endforeach
         </ul>
     </div>
-    @else
-    <div class="text-center d-flex flex-column align-items-center">
-        <img src="{{ asset('medias/images/wallet--empty.svg') }}" alt="wallet empty" style="margin: 44px auto 23px;">
-        <h3 class="fs-18 fw-semibold lh-19">Belum ada riwayat transaksi</h3>
-        <p class="text-dustygrey" style="padding: 0px 32px;">Untuk saat ini belum ada riwayat transaksi. Ayo lakukan transaksimu sekarang juga.</p>
-    </div>
-    @endif
 </div>
 @endsection

@@ -48,6 +48,25 @@
     transition: 0.35s;
 }
 
+.btn-danger {
+    -webkit-tap-highlight-color: #00000000;
+    cursor: pointer;
+    background-color: #f80505;
+    border: 0px;
+    border-radius: 4px;
+    color: #ffffff;
+    font-size: 1em;
+    font-weight: 700;
+    line-height: normal;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    vertical-align: middle;
+    width: 100%;
+    padding: 11px 37.5px;
+    transition: 0.35s;
+}
+
 .btn-outline-primary {
     -webkit-tap-highlight-color: #00000000;
     background-color: #ffffff;

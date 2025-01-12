@@ -13,6 +13,7 @@ class Order extends Model
         'car_id',
         'start_date',
         'end_date',
+        'note',
         'total_price',
     ];
 

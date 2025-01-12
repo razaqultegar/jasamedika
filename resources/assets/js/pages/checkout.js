@@ -23,16 +23,7 @@ var Checkout = (function () {
                     }
                 })
                 .catch(function (error) {
-                    const dataErrors = error.response?.data?.errors || {};
-                    let dataMessage = "";
-
-                    Object.keys(dataErrors).forEach((key) => {
-                        if (dataErrors.hasOwnProperty(key)) {
-                            dataMessage += `\r\n${dataErrors[key]}, silahkan coba lagi`;
-                        }
-                    });
-
-                    showFlashMessage(dataMessage);
+                    showFlashMessage(error.response.data.message);
                     setTimeout(function () {
                         location.reload();
                     }, 1500);

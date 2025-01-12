@@ -15,7 +15,7 @@
         <fieldset class="m-0">
             <label class="mt-0">Catatan</label>
             <div>
-                <textarea rows="4" height="auto" name="address" placeholder="..."></textarea>
+                <textarea rows="4" height="auto" name="note" placeholder="..."></textarea>
             </div>
         </fieldset>
     </div>
@@ -27,6 +27,8 @@
             $days = $startDate->diffInDays($endDate);
         @endphp
         <div data-title="Tanggal Sewa">{{ $startDate->format('d-m-Y') }} - {{ $endDate->format('d-m-Y') }}<br>({{ $days }} Hari)</div>
+        <input type="hidden" name="start_date" value="{{ $startDate->format('Y-m-d') }}">
+        <input type="hidden" name="end_date" value="{{ $endDate->format('Y-m-d') }}">
         <div data-title="Mobil">{{ $order->merk }} - {{ $order->model }}</div>
         <input type="hidden" name="car_id" value="{{ $order->id }}">
         <div data-title="Harga Sewa (/per Hari)">{{ currency_formates($order->price) }}</div>

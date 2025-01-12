@@ -15,6 +15,7 @@ class CreateCarsTable extends Migration
     {
         Schema::create('cars', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->string('plate', '11')->unique();
             $table->enum('merk', ['Toyota', 'Daihatsu', 'Honda', 'Mitsubishi', 'Suzuki'])->default('Toyota');
             $table->string('model', '50');

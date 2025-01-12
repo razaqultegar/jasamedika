@@ -5,8 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
-use App\Models\User;
-
 class AccountController extends Controller
 {
     public function index()
@@ -18,23 +16,22 @@ class AccountController extends Controller
     public function edit()
     {
         $data['title'] = 'Sunting Akun';
-        $data['user'] = User::where('id', Auth::user()->id)->first();
+        $data['user'] = Auth::user();
 
         return view('settings.edit', $data);
     }
 
     public function update(Request $request)
     {
-        $user = User::find(Auth::user()->id);
-        $user->license = $request->license ?? null;
-        $user->name = $request->name;
-        $user->address = $request->address ?? null;
-        $user->save();
+        $user = Auth::user();
+        $user->update([
+            'license' => $request->license ?? null,
+            'name' => $request->name,
+            'address' => $request->address ?? null,
+        ]);
 
-        if ($user == true) {
-            return response()->json(['message' => 'Sukses mengubah profil'], 201);
-        }
-
-        return response()->json(['error' => 'Terjadi kesalahan, silahkan coba lagi'], 400);
+        return $user
+            ? response()->json(['message' => 'Sukses mengubah profil'], 201)
+            : response()->json(['error' => 'Terjadi kesalahan, silahkan coba lagi'], 400);
     }
 }

@@ -19,6 +19,7 @@ class CreateOrdersTable extends Migration
             $table->foreignId('car_id')->constrained()->onDelete('cascade');
             $table->date('start_date');
             $table->date('end_date');
+            $table->text('note')->nullable();
             $table->decimal('total_price', 10, 2);
         });
     }

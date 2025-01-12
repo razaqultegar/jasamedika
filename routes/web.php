@@ -32,14 +32,21 @@ Route::middleware('auth')->group(function () {
     Route::get('pesan', [HomeController::class, 'checkout'])->name('checkout');
     Route::post('pesan', [HomeController::class, 'checkout_process']);
 
-    Route::get('mobil', [CarController::class, 'index'])->name('cars.index');
-    Route::get('mobil/baru', [CarController::class, 'create'])->name('cars.create');
-    Route::post('mobil/baru', [CarController::class, 'store']);
+    Route::prefix('mobil')->name('cars.')->group(function () {
+        Route::get('/', [CarController::class, 'index'])->name('index');
+        Route::get('baru', [CarController::class, 'create'])->name('create');
+        Route::post('baru', [CarController::class, 'store']);
+        Route::get('{id}/sunting', [CarController::class, 'edit'])->name('edit');
+        Route::put('{id}/sunting', [CarController::class, 'update']);
+        Route::get('{id}/hapus', [CarController::class, 'destroy'])->name('destroy');
+    });
 
     Route::get('riwayat', [HomeController::class, 'history'])->name('history');
 
-    Route::get('akun-saya/sunting', [AccountController::class, 'edit'])->name('account.edit');
-    Route::post('akun-saya/sunting', [AccountController::class, 'update']);
+    Route::prefix('akun-saya')->name('account.')->group(function () {
+        Route::get('sunting', [AccountController::class, 'edit'])->name('edit');
+        Route::post('sunting', [AccountController::class, 'update']);
+    });
 
     Route::get('keluar', [AuthenticatedSessionController::class, 'destroy'])->name('signout');
 });

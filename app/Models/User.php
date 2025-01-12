@@ -20,4 +20,9 @@ class User extends Authenticatable
         'license',
         'password',
     ];
+
+    public function cars()
+    {
+        return $this->hasMany(Car::class);
+    }
 }
