@@ -32,7 +32,13 @@
     <div class="mt-4">
         <div class="grid grid-cols-2 gap-x-2 gap-y-6">
             @foreach ($cars as $value)
+            @if($value->is_booked)
+            <a href="#" class="relative w-full flex-shrink-0 rounded-lg bg-white cursor-not-allowed shadow-[0_2px_8px_rgba(152,152,152,0.2)]">
+                <span class="absolute top-0 left-0 inline-block px-2 py-1 text-xs font-semibold text-white bg-red-500 rounded-tr-lg">Tidak Tersedia</span>
+            @else
             <a href="{{ route('checkout', ['id' => $value->id, 'action' => 'checkout']) }}" class="relative w-full flex-shrink-0 rounded-lg bg-white shadow-[0_2px_8px_rgba(152,152,152,0.2)]">
+                <span class="absolute top-0 left-0 inline-block px-2 py-1 text-xs font-semibold text-white bg-green-500 rounded-tr-lg">Tersedia</span>
+            @endif
                 <img src="https://ik.imagekit.io/tvlk/image/imageResource/2019/11/05/1572928605279-d1e128e08c4b2f362357a325d1c149a4.jpeg?tr=q-75,w-640" alt="Bersama Peduli Menebar Cinta dan Kebaikan Islam" width="220" height="120" class="h-[120px] w-full rounded-tl-lg rounded-tr-lg">
                 <div class="p-3">
                     <span class="mb-2 block text-sm font-semibold text-mineshaft">{{ $value->merk }} {{ $value->model }}</span>
