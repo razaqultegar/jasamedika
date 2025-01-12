@@ -96,8 +96,6 @@
             </div>
         </div>
     </div>
-    <hr class="m-0 h-2 w-full border-0 bg-skull p-0">
-    @include('layouts.footer')
     @include('modals.merk')
     @include('modals.model')
     @include('modals.sort')

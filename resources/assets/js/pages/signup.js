@@ -108,6 +108,4 @@ var SignUp = (function () {
     };
 })();
 
-$(document).ready(function () {
-    SignUp.init();
-});
+document.addEventListener("DOMContentLoaded", SignUp.init);

@@ -103,6 +103,4 @@ var SignIn = (function () {
     };
 })();
 
-$(document).ready(function () {
-    SignIn.init();
-});
+document.addEventListener("DOMContentLoaded", SignIn.init);
