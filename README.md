@@ -8,8 +8,6 @@ To run this project, ensure you have the following installed:
 - Node.js & npm
 - Laravel 8 (pre-installed through this repository)
 
----
-
 ## 🚀 Installation
 
 Follow these steps to set up the project locally:
