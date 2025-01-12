@@ -31,7 +31,12 @@
                 <span class="border-l-[1px]text-[18px] flex h-[45px] flex-auto items-center rounded-s-[3px] rounded-e-none border-[1px] border-t-[1px] border-r-0 border-b-[1px] border-solid border-[#e8e9eb] bg-[#f9f9fa]  px-[0.75em] py-[0.5em]">
                     <svg width="24px" height="24px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" role="img"><path d="M7.019 4a1 1 0 1 1 2 0v1.577a1 1 0 1 1-2 0V4ZM15.019 4a1 1 0 1 1 2 0v1.577a1 1 0 1 1-2 0V4Z" fill="#10A8E5"></path><path fill-rule="evenodd" clip-rule="evenodd" d="M2.5 8A3.5 3.5 0 0 1 6 4.5a.5.5 0 0 1 0 1A2.5 2.5 0 0 0 3.5 8v10A2.5 2.5 0 0 0 6 20.5h12a2.5 2.5 0 0 0 2.5-2.5V8A2.5 2.5 0 0 0 18 5.5a.5.5 0 0 1 0-1A3.5 3.5 0 0 1 21.5 8v10a3.5 3.5 0 0 1-3.5 3.5H6A3.5 3.5 0 0 1 2.5 18V8Zm7-3a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5Z" fill="#6A6A6A"></path><path d="M6.5 10a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1h1a1 1 0 0 0 1-1v-1a1 1 0 0 0-1-1h-1ZM11.5 10a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1h1a1 1 0 0 0 1-1v-1a1 1 0 0 0-1-1h-1ZM15.5 11a1 1 0 0 1 1-1h1a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1h-1a1 1 0 0 1-1-1v-1ZM6.5 15a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1h1a1 1 0 0 0 1-1v-1a1 1 0 0 0-1-1h-1ZM10.5 16a1 1 0 0 1 1-1h1a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1h-1a1 1 0 0 1-1-1v-1ZM16.5 15a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1h1a1 1 0 0 0 1-1v-1a1 1 0 0 0-1-1h-1Z" fill="#6A6A6A"></path></svg>
                 </span>
-                <input type="text" id="datepicker" class="h-[45px] w-full flex-grow rounded-s-none rounded-e-[3px] border-[1px] border-solid border-[#e8e9eb] pt-[9.5px] pr-[9.5px] pb-[9.5px] pl-[15px] transition-all focus:border-[1px] focus:border-solid focus:border-[#3198e8] focus:outline-none" name="date_range" placeholder="Pilih tanggal" value="{{ \Carbon\Carbon::now()->format('Y-m-d') }} - {{ \Carbon\Carbon::now()->addDay()->format('Y-m-d') }}">
+                @php
+                    $today = \Carbon\Carbon::now()->format('Y-m-d');
+                    $tomorrow = \Carbon\Carbon::now()->addDay()->format('Y-m-d');
+                    $dateRange = request('date_range', "$today - $tomorrow");
+                @endphp
+                <input type="text" id="datepicker" class="h-[45px] w-full flex-grow rounded-s-none rounded-e-[3px] border-[1px] border-solid border-[#e8e9eb] pt-[9.5px] pr-[9.5px] pb-[9.5px] pl-[15px] transition-all focus:border-[1px] focus:border-solid focus:border-[#3198e8] focus:outline-none" name="date_range" placeholder="Pilih tanggal" value="{{ $dateRange }}">
             </div>
         </div>
         <button type="submit" class="mt-3 w-full rounded-[3px] bg-cerulean-50 p-3 text-base font-bold text-white text-center">Ayo Cari</button>
@@ -74,7 +79,7 @@
                 <a href="#" class="relative w-full flex-shrink-0 rounded-lg bg-white cursor-not-allowed shadow-[0_2px_8px_rgba(152,152,152,0.2)]">
                     <span class="absolute top-0 left-0 inline-block px-2 py-1 text-xs font-semibold text-white bg-red-500 rounded-tr-lg">Tidak Tersedia</span>
                 @else
-                <a href="{{ route('checkout', ['id' => $value->id, 'action' => 'checkout']) }}" class="relative w-full flex-shrink-0 rounded-lg bg-white shadow-[0_2px_8px_rgba(152,152,152,0.2)]">
+                <a href="{{ route('checkout', ['date_range' => session('date_range'), 'id' => $value->id, 'action' => 'checkout']) }}" class="relative w-full flex-shrink-0 rounded-lg bg-white shadow-[0_2px_8px_rgba(152,152,152,0.2)]">
                     <span class="absolute top-0 left-0 inline-block px-2 py-1 text-xs font-semibold text-white bg-green-500 rounded-tr-lg">Tersedia</span>
                 @endif
                     <img src="https://ik.imagekit.io/tvlk/image/imageResource/2019/11/05/1572928605279-d1e128e08c4b2f362357a325d1c149a4.jpeg?tr=q-75,w-640" alt="Bersama Peduli Menebar Cinta dan Kebaikan Islam" width="220" height="120" class="h-[120px] w-full rounded-tl-lg rounded-tr-lg">

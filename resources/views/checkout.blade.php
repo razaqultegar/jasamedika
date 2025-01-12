@@ -21,14 +21,17 @@
     </div>
     <div class="w-[calc(100% + 32px)] -mx-4 h-2 bg-coal"></div>
     <div id="cart" class="block py-[1.5em]">
-        <div data-title="Tanggal Sewa">{{ Session::get('start') }} - {{ Session::get('end') }} <br> ({{ Session::get('days') }} hari)</div>
-        <input type="hidden" name="start_date" value="{{ Session::get('start_value') }}">
-        <input type="hidden" name="end_date" value="{{ Session::get('end_value') }}">
+        @php
+            $dateRange = Session::get('date_range');
+            [$startDate, $endDate] = array_map(fn($date) => \Carbon\Carbon::parse($date), explode(' - ', $dateRange));
+            $days = $startDate->diffInDays($endDate);
+        @endphp
+        <div data-title="Tanggal Sewa">{{ $startDate->format('d-m-Y') }} - {{ $endDate->format('d-m-Y') }}<br>({{ $days }} Hari)</div>
         <div data-title="Mobil">{{ $order->merk }} - {{ $order->model }}</div>
         <input type="hidden" name="car_id" value="{{ $order->id }}">
         <div data-title="Harga Sewa (/per Hari)">{{ currency_formates($order->price) }}</div>
-        <div class="font-bold" data-title="Total">{{ currency_formates($order->price * Session::get('days')) }}</div>
-        <input type="hidden" name="total_price" value="{{ $order->price * Session::get('days') }}">
+        <div class="font-bold" data-title="Total">{{ currency_formates($order->price * $days) }}</div>
+        <input type="hidden" name="total_price" value="{{ $order->price * $days }}">
     </div>
     <button type="submit" class="btn-primary mt-4 mb-10">
         <span class="indicator-label">Pesan Sekarang</span>

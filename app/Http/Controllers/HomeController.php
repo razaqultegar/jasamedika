@@ -19,10 +19,12 @@ class HomeController extends Controller
 
         if ($request->has('date_range') && !empty($request->date_range)) {
             $dates = explode(' - ', $request->date_range);
+            $request->session()->put('date_range', $request->date_range);
         } else {
             $startDate = now()->format('Y-m-d');
             $endDate = now()->addDay()->format('Y-m-d');
             $dates = [$startDate, $endDate];
+            $request->session()->put('date_range', $startDate . ' - ' . $endDate);
         }
 
         if (count($dates) === 2) {
