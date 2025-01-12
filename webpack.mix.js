@@ -15,7 +15,6 @@ const path = require("path");
  */
 
 // Globals
-mix.autoload({ jquery: ["$", "jQuery"] });
 mix.browserSync("127.0.0.1:8000").disableNotifications();
 mix.options({ cssNano: { discardComments: true } });
 
