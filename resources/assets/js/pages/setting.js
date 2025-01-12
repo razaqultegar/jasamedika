@@ -2,7 +2,7 @@
 
 var EditAccount = (function () {
     // Globals
-    var form, license, name, address, submitButton;
+    var form, name, submitButton;
 
     // Show error message
     var showError = function (element, message) {
@@ -48,7 +48,7 @@ var EditAccount = (function () {
 
     // Check form validity
     var checkFormValidity = function () {
-        if (license.classList.contains("is-invalid") || name.classList.contains("is-invalid") || address.classList.contains("is-invalid")) {
+        if (name.classList.contains("is-invalid")) {
             submitButton.setAttribute("disabled", "disabled");
         } else {
             submitButton.removeAttribute("disabled");
@@ -57,17 +57,9 @@ var EditAccount = (function () {
 
     // Init forms
     var initForm = function () {
-        license.addEventListener("input", function (e) {
-            e.preventDefault();
-            validateInput(license, { empty: "Nomor sim harus diisi" });
-        });
         name.addEventListener("input", function (e) {
             e.preventDefault();
             validateInput(name, { empty: "Nama lengkap harus diisi" });
-        });
-        address.addEventListener("input", function (e) {
-            e.preventDefault();
-            validateInput(address, { empty: "Alamat tinggal harus diisi" });
         });
     };
 
@@ -79,58 +71,41 @@ var EditAccount = (function () {
             submitButton.disabled = true;
 
             axios
-                .post(
-                    submitButton.closest("form").getAttribute("action"),
-                    new FormData(form)
-                )
+                .post(submitButton.closest("form").getAttribute("action"), new FormData(form))
                 .then(function (response) {
                     if (response.status == 201) {
-                        var flashMessage = document.createElement("div");
-
-                        flashMessage.className = "flash-message_wrapper";
-                        flashMessage.innerHTML = '<div class="flash-message_content"><span class="flash-message_text">' + response.data.message + '</span></div>';
-
-                        form.parentNode.insertBefore(flashMessage, form.nextSibling);
-
+                        showFlashMessage(response.data.message);
                         setTimeout(function () {
-                            flashMessage.remove();
                             location.reload();
                         }, 1500);
                     }
                 })
                 .catch(function (error) {
-                    let dataMessage = "";
-                    let dataErrors = error.response.data.errors;
-
-                    for (const errorsKey in dataErrors) {
-                        if (dataErrors.hasOwnProperty(errorsKey)) {
-                            dataMessage += "\r\n" + dataErrors[errorsKey] + ", silahkan coba lagi";
-                        }
-                    }
-
-                    if (error.response) {
-                        var flashMessage = document.createElement("div");
-
-                        flashMessage.className = "flash-message_wrapper";
-                        flashMessage.innerHTML = '<div class="flash-message_content"><span class="flash-message_text">' + dataMessage + '</span></div>';
-
-                        form.parentNode.insertBefore(flashMessage, form.nextSibling);
-
-                        setTimeout(function () {
-                            flashMessage.remove();
-                            location.reload();
-                        }, 1500);
-                    }
+                    showFlashMessage(error.response.data.message);
+                    setTimeout(function () {
+                        location.reload();
+                    }, 1500);
                 });
         });
+    };
+
+    // Show flash message
+    var showFlashMessage = function (message) {
+        var flashMessage = document.createElement("div");
+
+        flashMessage.className = "flash-message_wrapper";
+        flashMessage.innerHTML = '<div class="flash-message_content"><span class="flash-message_text">' + message + '</span></div>';
+        form.parentNode.insertBefore(flashMessage, form.nextSibling);
+
+        setTimeout(function () {
+            flashMessage.remove();
+        }, 1500);
     };
 
     return {
         init: function () {
             form = document.querySelector("form");
-            license = form.querySelector("input[name=license]");
             name = form.querySelector("input[name=name]");
-            address = form.querySelector("textarea[name=address]");
             submitButton = form.querySelector("button[type=submit]");
 
             initForm();
@@ -139,6 +114,4 @@ var EditAccount = (function () {
     };
 })();
 
-$(document).ready(function () {
-    EditAccount.init();
-});
+document.addEventListener("DOMContentLoaded", EditAccount.init);

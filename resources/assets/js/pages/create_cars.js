@@ -134,9 +134,11 @@ var CreateCars = (function () {
     // Show flash message
     var showFlashMessage = function (message) {
         var flashMessage = document.createElement("div");
+
         flashMessage.className = "flash-message_wrapper";
         flashMessage.innerHTML = '<div class="flash-message_content"><span class="flash-message_text">' + message + '</span></div>';
         form.parentNode.insertBefore(flashMessage, form.nextSibling);
+
         setTimeout(function () {
             flashMessage.remove();
         }, 1500);
@@ -157,6 +159,4 @@ var CreateCars = (function () {
     };
 })();
 
-$(document).ready(function () {
-    CreateCars.init();
-});
+document.addEventListener("DOMContentLoaded", CreateCars.init);

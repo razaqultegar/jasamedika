@@ -1,10 +1,15 @@
 "use strict";
 
 var Home = (function () {
+    // Globals
+    var datepicker;
+
     // Init forms
     var initForm = function () {
+        if (!datepicker) return;
+
         // Init flatpickr
-        $("#datepicker").flatpickr({
+        flatpickr(datepicker, {
             locale: "id",
             mode: "range",
             minDate: "today",
@@ -14,19 +19,12 @@ var Home = (function () {
         });
     };
 
-    // Handle forms
-    var handleForm = function () {
-        // Add form handling logic here
-    };
-
     return {
         init: function () {
+            datepicker = document.getElementById("datepicker");
             initForm();
-            handleForm();
         },
     };
 })();
 
-$(document).ready(function () {
-    Home.init();
-});
+document.addEventListener("DOMContentLoaded", Home.init);

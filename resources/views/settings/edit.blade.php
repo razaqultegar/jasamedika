@@ -4,9 +4,9 @@
 <form action="{{ route('account.edit') }}" method="post">
     @csrf
     <fieldset>
-        <label class="required">No. SIM</label>
+        <label>No. SIM</label>
         <div>
-            <input type="text" name="license" placeholder="..." value="{{ $user->license }}" required>
+            <input type="text" name="license" placeholder="..." value="{{ $user->license }}">
         </div>
     </fieldset>
     <fieldset>
@@ -22,9 +22,9 @@
         </div>
     </fieldset>
     <fieldset>
-        <label class="required">Alamat Tinggal</label>
+        <label>Alamat Tinggal</label>
         <div>
-            <textarea rows="4" height="auto" name="address" placeholder="..." required>{{ $user->address }}</textarea>
+            <textarea rows="4" height="auto" name="address" placeholder="...">{{ $user->address }}</textarea>
         </div>
     </fieldset>
     <div class="notice">Informasi berikut <span class="font-semibold">hanya dapat dilihat oleh kamu</span> dan tidak akan kami publikasikan</div>

@@ -31,7 +31,7 @@ class AccountController extends Controller
         $user->address = $request->address ?? null;
         $user->save();
 
-        if ($user == TRUE) {
+        if ($user == true) {
             return response()->json(['message' => 'Sukses mengubah profil'], 201);
         }
 

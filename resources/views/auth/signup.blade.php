@@ -71,7 +71,7 @@
                         <a href="{{ route('signin') }}" class="text-clrPrimary">Masuk</a>
                     </p>
                 </div>
-                <div class="mt-5 text-center text-xs text-clrSubText">Dengan mendaftar, kamu setuju dengan <a href="#" target="_blank" rel="noopener noreferrer" class="underline">Syarat dan Ketentuan</a> {{ config('app.name') }}</div>
+                <div class="mt-5 text-center text-xs text-clrSubText">Dengan mendaftar, kamu setuju dengan <a href="#" class="underline">Syarat dan Ketentuan</a> {{ config('app.name') }}</div>
             </div>
         </div>
         <script type="text/javascript" src="{{ asset('js/app.min.js') }}"></script>
