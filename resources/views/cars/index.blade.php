@@ -2,43 +2,10 @@
 
 @section('content')
 <div class="pb-[66px]">
-    <div class="my-0 flex justify-around">
-        <div class="relative flex w-full cursor-pointer items-center justify-center border-r border-solid border-[#e8e8e8] p-[0.5em] text-center text-[12px] font-semibold" data-toggle="modal" data-target="#filterbymerk">
-            <div class="flex justify-end">
-                <span class="mr-[5px]">
-                    <img src="{{ asset('medias/svg/icon_category.svg') }}" alt="category">
-                </span>
-                <span class="relative top-[4px]">Merk</span>
-            </div>
-        </div>
-        <div class="flex w-full cursor-pointer items-center justify-center p-[0.5em] text-center text-[12px] font-semibold" data-toggle="modal" data-target="#filterbymodel">
-            <div class="flex justify-end">
-                <span>
-                    <img src="{{ asset('medias/svg/icon_filter.svg') }}" alt="filter">
-                </span>
-                <span class="relative top-[4px]">Model</span>
-            </div>
-        </div>
-        <div class="flex w-full cursor-pointer items-center justify-center border-l border-solid border-[#e8e8e8] p-[0.5em] text-center text-[12px] font-semibold" data-toggle="modal" data-target="#sort">
-            <div class="flex justify-end">
-                <span class="mr-[5px]">
-                    <img src="{{ asset('medias/svg/icon_sort.svg') }}" alt="sort">
-                </span>
-                <span class="relative top-[4px]">Urutkan</span>
-            </div>
-        </div>
-    </div>
-    <div class="box-shadow mx-[-16px] mt-[8px] border-b border-solid border-[#e8e8e8]"></div>
     <div class="mt-4">
         <div class="grid grid-cols-2 gap-x-2 gap-y-6">
             @foreach ($cars as $value)
-            @if($value->is_booked)
-            <a href="#" class="relative w-full flex-shrink-0 rounded-lg bg-white cursor-not-allowed shadow-[0_2px_8px_rgba(152,152,152,0.2)]">
-                <span class="absolute top-0 left-0 inline-block px-2 py-1 text-xs font-semibold text-white bg-red-500 rounded-tr-lg">Tidak Tersedia</span>
-            @else
-            <a href="{{ route('checkout', ['id' => $value->id, 'action' => 'checkout']) }}" class="relative w-full flex-shrink-0 rounded-lg bg-white shadow-[0_2px_8px_rgba(152,152,152,0.2)]">
-                <span class="absolute top-0 left-0 inline-block px-2 py-1 text-xs font-semibold text-white bg-green-500 rounded-tr-lg">Tersedia</span>
-            @endif
+            <a href="#" class="relative w-full flex-shrink-0 rounded-lg bg-white shadow-[0_2px_8px_rgba(152,152,152,0.2)]">
                 <img src="https://ik.imagekit.io/tvlk/image/imageResource/2019/11/05/1572928605279-d1e128e08c4b2f362357a325d1c149a4.jpeg?tr=q-75,w-640" alt="Bersama Peduli Menebar Cinta dan Kebaikan Islam" width="220" height="120" class="h-[120px] w-full rounded-tl-lg rounded-tr-lg">
                 <div class="p-3">
                     <span class="mb-2 block text-sm font-semibold text-mineshaft">{{ $value->merk }} {{ $value->model }}</span>
@@ -59,10 +26,6 @@
     </div>
 </div>
 
-@include('cars.modals.merk')
-@include('cars.modals.model')
-@include('cars.modals.sort')
-
 @auth
 <div class="fixed bottom-24 z-[2] w-480 -mx-4 flex justify-end">
     <a href="{{ route('cars.create') }}" class="block flex h-10 w-10 items-center justify-center rounded-full border-none bg-white shadow-xl mr-5">
@@ -71,7 +34,3 @@
 </div>
 @endauth
 @endsection
-
-@push('scripts')
-<script type="text/javascript" src="{{ asset('js/pages/cars.min.js') }}"></script>
-@endpush

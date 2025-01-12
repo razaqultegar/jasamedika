@@ -26,7 +26,7 @@
                 </div>
             </header>
             @endif
-            @if (Request::segment(1) != NULL) <main id="account-page" class="app-main"> @endif
+            @if (Request::segment(1) != NULL) <main class="app-main"> @endif
                 @yield('content')
             @if (Request::segment(1) != NULL) </main> @endif
             @if (Request::segment(2) == NULL) @include('layouts.menu') @endif
