@@ -21,6 +21,7 @@ class CreateOrdersTable extends Migration
             $table->date('end_date');
             $table->text('note')->nullable();
             $table->decimal('total_price', 10, 2);
+            $table->enum('status', ['Proses', 'Selesai'])->default('Proses');
         });
     }
 

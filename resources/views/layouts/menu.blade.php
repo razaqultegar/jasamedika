@@ -11,7 +11,7 @@
         </div>
         <span class="inline-block whitespace-nowrap {{ request()->routeIs('cars.index') ? 'text-[#00aaef]' : 'text-[#a8a8a8]' }}">Mobil</span>
     </a>
-    <a href="{{ route('history') }}" class="inline-block w-1/5 cursor-pointer text-[10px]">
+    <a href="{{ route('history.index') }}" class="inline-block w-1/5 cursor-pointer text-[10px]">
         <div class="relative mb-1 pt-1">
             <img src="{{ request()->routeIs('history') ? asset('medias/svg/receipt_active.svg') : asset('medias/svg/receipt.svg') }}" alt="riwayat pemesanan" class="inline-block h-[24px] w-[24px]">
         </div>

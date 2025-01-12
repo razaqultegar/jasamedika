@@ -56,6 +56,30 @@ class HomeController extends Controller
         return view('history', $data);
     }
 
+    public function showHistory($id)
+    {
+        $order = Order::findOrFail($id);
+
+        if ($order->user_id !== Auth::id()) {
+            return redirect()->back()->with('error', 'Anda tidak memiliki izin untuk melihat riwayat ini');
+        }
+
+        $data['title'] = 'Detail Pemesanan ' . $order->id;
+        $data['order'] = $order;
+
+        return view('histories.show', $data);
+    }
+
+    public function updateHistory($id)
+    {
+        $order = Order::findOrFail($id);
+        $order->update(['status' => 'Selesai']);
+
+        return $order
+            ? redirect()->route('history.index')->with('message', 'Mobil berhasil dihapus')
+            : redirect()->back()->with('message', 'Terjadi kesalahan, silahkan coba lagi');
+    }
+
     private function getDateRange(Request $request)
     {
         if ($request->has('date_range') && !empty($request->date_range)) {

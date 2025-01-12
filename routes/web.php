@@ -41,7 +41,11 @@ Route::middleware('auth')->group(function () {
         Route::get('{id}/hapus', [CarController::class, 'destroy'])->name('destroy');
     });
 
-    Route::get('riwayat', [HomeController::class, 'history'])->name('history');
+    Route::prefix('riwayat')->name('history.')->group(function () {
+        Route::get('/', [HomeController::class, 'history'])->name('index');
+        Route::get('{id}', [HomeController::class, 'showHistory'])->name('show');
+        Route::put('{id}', [HomeController::class, 'updateHistory'])->name('update');
+    });
 
     Route::prefix('akun-saya')->name('account.')->group(function () {
         Route::get('sunting', [AccountController::class, 'edit'])->name('edit');
