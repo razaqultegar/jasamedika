@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 use App\Models\Car;
 use App\Models\Order;
@@ -72,7 +73,7 @@ class HomeController extends Controller
         return view('checkout', $data);
     }
 
-    public function store(Request $request)
+    public function checkout_process(Request $request)
     {
         $order = Order::create($request->all());
 
@@ -81,5 +82,13 @@ class HomeController extends Controller
         }
 
         return response()->json(['message' => 'Terjadi kesalahan, silahkan coba lagi'], 500);
+    }
+
+    public function history()
+    {
+        $data['title'] = 'Riwayat Pemesanan';
+        $data['cars'] = Order::where('user_id', Auth::user()->id)->get();
+
+        return view('history', $data);
     }
 }

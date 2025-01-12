@@ -30,11 +30,13 @@ Route::middleware('guest')->group(function () {
 
 Route::middleware('auth')->group(function () {
     Route::get('pesan', [HomeController::class, 'checkout'])->name('checkout');
-    Route::post('pesan', [HomeController::class, 'store']);
+    Route::post('pesan', [HomeController::class, 'checkout_process']);
 
     Route::get('mobil', [CarController::class, 'index'])->name('cars.index');
     Route::get('mobil/baru', [CarController::class, 'create'])->name('cars.create');
     Route::post('mobil/baru', [CarController::class, 'store']);
+
+    Route::get('riwayat', [HomeController::class, 'history'])->name('history');
 
     Route::get('akun-saya/sunting', [AccountController::class, 'edit'])->name('account.edit');
     Route::post('akun-saya/sunting', [AccountController::class, 'update']);
