@@ -9,7 +9,7 @@ class HomeController extends Controller
     public function index()
     {
         $data['title'] = 'Beranda';
-        $data['cars'] = Car::all();
+        $data['cars'] = Car::limit(6)->get();
 
         return view('home', $data);
     }

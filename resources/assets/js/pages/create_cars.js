@@ -118,12 +118,21 @@ var CreateCars = (function () {
                     if (response.status == 201) {
                         showFlashMessage(response.data.message);
                         setTimeout(function () {
-                            location.reload();
+                            location.href = "/mobil";
                         }, 1500);
                     }
                 })
                 .catch(function (error) {
-                    showFlashMessage(error.response.data.message);
+                    const dataErrors = error.response?.data?.errors || {};
+                    let dataMessage = "";
+
+                    Object.keys(dataErrors).forEach((key) => {
+                        if (dataErrors.hasOwnProperty(key)) {
+                            dataMessage += `\r\n${dataErrors[key]}, silahkan coba lagi`;
+                        }
+                    });
+
+                    showFlashMessage(dataMessage);
                     setTimeout(function () {
                         location.reload();
                     }, 1500);

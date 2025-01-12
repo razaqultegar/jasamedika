@@ -15,7 +15,7 @@ class CreateCarsTable extends Migration
     {
         Schema::create('cars', function (Blueprint $table) {
             $table->id();
-            $table->string('plate', '11');
+            $table->string('plate', '11')->unique();
             $table->enum('merk', ['Toyota', 'Daihatsu', 'Honda', 'Mitsubishi', 'Suzuki'])->default('Toyota');
             $table->string('model', '50');
             $table->decimal('price', $precision = 10, $scale = 2);
