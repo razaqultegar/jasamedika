@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\CarController;
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\RegisteredUserController;
@@ -18,6 +19,7 @@ use App\Http\Controllers\Auth\RegisteredUserController;
 */
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('mobil', [CarController::class, 'index'])->name('cars.index');
 Route::get('akun-saya', [AccountController::class, 'index'])->name('account.index');
 
 Route::middleware('guest')->group(function () {
@@ -28,6 +30,9 @@ Route::middleware('guest')->group(function () {
 });
 
 Route::middleware('auth')->group(function () {
+    Route::get('mobil/baru', [CarController::class, 'create'])->name('cars.create');
+    Route::post('mobil/baru', [CarController::class, 'store']);
+
     Route::get('akun-saya/sunting', [AccountController::class, 'edit'])->name('account.edit');
     Route::post('akun-saya/sunting', [AccountController::class, 'update']);
 

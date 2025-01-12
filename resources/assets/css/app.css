@@ -108,19 +108,19 @@ fieldset {
     margin: 0.75em 0px;
 }
 
-fieldset div {
-    border-radius: 3px;
-    display: inline-flex;
-    align-items: center;
-    position: relative;
-    width: 100%;
-}
-
 fieldset label {
     font-size: 0.875rem;
     display: block;
     margin-top: 0.5rem;
     margin-bottom: 0.5rem;
+}
+
+fieldset label + div {
+    border-radius: 3px;
+    display: inline-flex;
+    align-items: center;
+    position: relative;
+    width: 100%;
 }
 
 .required:after {
@@ -133,7 +133,7 @@ fieldset label {
 }
 
 /* prettier-ignore */
-fieldset input, fieldset textarea {
+fieldset input, fieldset select, fieldset textarea {
     background-color: #ffffff;
     border: 1px solid #e8e9eb;
     border-radius: 3px;
@@ -143,12 +143,20 @@ fieldset input, fieldset textarea {
     transition: 0.3s;
 }
 
+fieldset select {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%2378829D' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    background-size: 16px 12px;
+}
+
 fieldset textarea {
     height: auto;
 }
 
 /* prettier-ignore */
-fieldset input.is-invalid, fieldset textarea.is-invalid {
+fieldset input.is-invalid, fieldset select.is-invalid, fieldset textarea.is-invalid {
     border: 1px solid #f80505;
 }
 
@@ -159,13 +167,15 @@ fieldset input:disabled {
 }
 
 /* prettier-ignore */
-fieldset input:focus, fieldset textarea:focus {
+fieldset input:focus, fieldset select:focus, fieldset textarea:focus {
     border: 1px solid #3198e8;
     outline: none;
 }
 
 /* prettier-ignore */
-fieldset input.is-invalid:focus, fieldset textarea.is-invalid:focus {
+fieldset input.is-invalid:focus,
+fieldset select.is-invalid:focus,
+fieldset textarea.is-invalid:focus {
     border: 1px solid #f80505;
 }
 

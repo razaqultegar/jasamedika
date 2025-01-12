@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="23px" viewBox="0 0 24 23" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 64 (93537) - https://sketch.com -->
+    <title>Fillter@1,5x</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <filter x="-2.2%" y="-16.0%" width="104.4%" height="132.0%" filterUnits="objectBoundingBox" id="filter-1">
+            <feOffset dx="0" dy="0" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="2" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.15 0" type="matrix" in="shadowBlurOuter1" result="shadowMatrixOuter1"></feColorMatrix>
+            <feMerge>
+                <feMergeNode in="shadowMatrixOuter1"></feMergeNode>
+                <feMergeNode in="SourceGraphic"></feMergeNode>
+            </feMerge>
+        </filter>
+    </defs>
+    <g id="Donation-Page" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="New---Donasi-Page---Balita-&amp;-Anak-Sakit-(1)" transform="translate(-263.000000, -84.000000)" stroke="#00AEEF" stroke-width="1.08">
+            <g id="Tab-Bar-/-Filter-/-Off" filter="url(#filter-1)" transform="translate(0.000000, 70.000000)">
+                <g id="Group-8" transform="translate(240.000000, 0.000000)">
+                    <g id="Group-12" transform="translate(27.000000, 17.000000)">
+                        <path d="M15.0622821,1.54 L0.653901247,2.16274307 L6.52897507,7.66589386 L6.52976428,15.0767377 L9.44981615,13.4342085 L9.44896557,7.64991101 L15.0622821,1.54 Z" id="Fillter"></path>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

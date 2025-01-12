@@ -5,9 +5,15 @@
         </div>
         <span class="inline-block whitespace-nowrap {{ request()->routeIs('home') ? 'text-[#00aaef]' : 'text-[#a8a8a8]' }}">Beranda</span>
     </a>
+    <a href="{{ route('cars.index') }}" class="inline-block w-1/5 cursor-pointer text-[10px]">
+        <div class="relative mb-1 pt-1">
+            <img src="{{ request()->routeIs('cars.index') ? asset('medias/svg/car_active.svg') : asset('medias/svg/car.svg') }}" alt="akun-saya" class="inline-block h-[24px] w-[24px]">
+        </div>
+        <span class="inline-block whitespace-nowrap {{ request()->routeIs('cars.index') ? 'text-[#00aaef]' : 'text-[#a8a8a8]' }}">Mobil</span>
+    </a>
     <a href="{{ route('account.index') }}" class="inline-block w-1/5 cursor-pointer text-[10px]">
         <div class="relative mb-1 pt-1">
-            <img src="{{ request()->routeIs('account.index') ? asset('medias/svg/account_navbar_active.svg') : asset('medias/svg/account_navbar.svg') }}" alt="akun-saya" class="inline-block h-[24px] w-[24px]">
+            <img src="{{ request()->routeIs('account.index') ? asset('medias/svg/account_active.svg') : asset('medias/svg/account.svg') }}" alt="akun-saya" class="inline-block h-[24px] w-[24px]">
         </div>
         <span class="inline-block whitespace-nowrap {{ request()->routeIs('account.index') ? 'text-[#00aaef]' : 'text-[#a8a8a8]' }}">Akun</span>
     </a>
