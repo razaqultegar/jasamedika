@@ -75,6 +75,12 @@ class CarController extends Controller
 
     public function destroy($id)
     {
+        $car = Car::findOrFail($id);
+
+        if ($car->user_id !== Auth::id()) {
+            return redirect()->back()->with('error', 'Anda tidak memiliki izin untuk menghapus mobil ini');
+        }
+
         $deleted = Car::destroy($id);
 
         return $deleted
