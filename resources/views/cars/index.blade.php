@@ -6,7 +6,7 @@
         <div class="grid grid-cols-2 gap-x-2 gap-y-6">
             @foreach ($cars as $value)
             <a href="{{ route('cars.edit', $value->id) }}" class="relative w-full flex-shrink-0 rounded-lg bg-white shadow-[0_2px_8px_rgba(152,152,152,0.2)]">
-                <img src="https://ik.imagekit.io/tvlk/image/imageResource/2019/11/05/1572928605279-d1e128e08c4b2f362357a325d1c149a4.jpeg?tr=q-75,w-640" alt="Bersama Peduli Menebar Cinta dan Kebaikan Islam" width="220" height="120" class="h-[120px] w-full rounded-tl-lg rounded-tr-lg">
+                <img src="{{ asset('medias/placeholder.jpeg') }}" width="220" height="120" class="h-[120px] w-full rounded-tl-lg rounded-tr-lg">
                 <div class="p-3">
                     <span class="mb-2 block text-sm font-semibold text-mineshaft">{{ $value->merk }} {{ $value->model }}</span>
                     <div class="mb-2 flex justify-between">
