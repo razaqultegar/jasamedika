@@ -14,4 +14,9 @@ class Car extends Model
         'model',
         'price',
     ];
+
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
+    }
 }

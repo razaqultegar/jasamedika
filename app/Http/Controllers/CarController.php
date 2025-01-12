@@ -7,10 +7,32 @@ use App\Models\Car;
 
 class CarController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $data['title'] = 'Mobil';
-        $data['cars'] = Car::all();
+        $query = Car::query();
+
+        if ($request->has('date_range') && !empty($request->date_range)) {
+            $dates = explode(' - ', $request->date_range);
+            if (count($dates) === 2) {
+                $startDate = $dates[0];
+                $endDate = $dates[1];
+
+                // Filter cars based on availability
+                $query->whereDoesntHave('orders', function ($q) use ($startDate, $endDate) {
+                    $q->where(function ($subQuery) use ($startDate, $endDate) {
+                        $subQuery->whereBetween('start_date', [$startDate, $endDate])
+                            ->orWhereBetween('end_date', [$startDate, $endDate])
+                            ->orWhere(function ($innerQuery) use ($startDate, $endDate) {
+                                $innerQuery->where('start_date', '<=', $startDate)
+                                    ->where('end_date', '>=', $endDate);
+                            });
+                    });
+                });
+            }
+        }
+
+        $data['cars'] = $query->get();
 
         return view('cars.index', $data);
     }
@@ -23,6 +45,12 @@ class CarController extends Controller
 
     public function store(Request $request)
     {
+        $request->validate([
+            'plate' => 'required|unique:cars,plate',
+        ], [
+            'plate.unique' => 'Nomor polisi tersebut sudah terdaftar',
+        ]);
+
         $car = Car::create([
             'plate' => $request->plate,
             'model' => $request->model,
@@ -30,7 +58,7 @@ class CarController extends Controller
             'price' => str_replace(['Rp', '.', ' '], '', $request->price),
         ]);
 
-        if ($car == true) {
+        if ($car) {
             return response()->json(['message' => 'Mobil baru berhasil ditambahkan'], 201);
         }
 
