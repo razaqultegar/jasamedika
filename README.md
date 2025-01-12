@@ -5,8 +5,9 @@ To run this project, ensure you have the following installed:
 - PHP >= 7.3
 - Composer
 - MySQL or any other supported database
-- Node.js & npm
+- Node.js & npm for (Flatpickr and Inputmask Plugins)
 - Laravel 8 (pre-installed through this repository)
+- Visual Studio Code
 
 ## 🚀 Installation
 
