@@ -28,6 +28,7 @@
     margin: 0px auto;
 }
 
+/* Buttons */
 .btn-primary {
     -webkit-tap-highlight-color: #00000000;
     cursor: pointer;
@@ -83,6 +84,7 @@
     color: #989898;
 }
 
+/* Button Indicator */
 .indicator-progress {
     display: none;
 }
@@ -102,6 +104,7 @@
     height: 1em;
 }
 
+/* Forms */
 fieldset {
     border-width: 0px;
     padding: 0px;
@@ -162,7 +165,7 @@ fieldset input.is-invalid, fieldset select.is-invalid, fieldset textarea.is-inva
 
 fieldset input:disabled {
     cursor: not-allowed;
-    background: #0000004d;
+    background: rgba(0, 0, 0, 0.302);
     opacity: 0.4;
 }
 
@@ -238,6 +241,35 @@ fieldset .invalid-feedback {
     transition: all 0.3s ease;
 }
 
+.checkbox-container {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+.checkbox-container input {
+    display: none;
+}
+
+.checkbox-container span {
+    background-color: #ffffff;
+    border: 1px solid #cccccc;
+    border-radius: 0.25rem;
+    color: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 17px;
+    height: 17px;
+    transition: 0.25s;
+}
+
+.checkbox-container input:checked + span {
+    background-color: #01abeb;
+    border-color: #01abeb;
+    color: #ffffff;
+}
+
 .form-control.is-invalid ~ label {
     color: #f80505;
 }
@@ -284,7 +316,7 @@ fieldset .invalid-feedback {
     background-color: rgba(0, 0, 0, 0.7);
     border-radius: 100px;
     box-shadow: rgba(0, 0, 0, 0.26) 0px 2px 4px 0px;
-    color: white;
+    color: #ffffff;
     font-size: 0.75rem;
     line-height: 1.25rem;
     display: flex;
@@ -301,9 +333,45 @@ fieldset .invalid-feedback {
     overflow-wrap: break-word;
 }
 
+/* Cars - Filter */
+.backdrop {
+    background: rgba(0, 0, 0, 0.7);
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0px;
+    left: 0px;
+    z-index: 99;
+}
+
+.modal {
+    background-color: #ffffff;
+    box-shadow: rgba(152, 152, 152, 0.2) 0px -10px 10px 0px;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+    position: fixed;
+    max-width: 480px;
+    width: 100%;
+    left: 50%;
+    bottom: -180px;
+    padding: 8px 16px 16px;
+    opacity: 0;
+    transform: translate(-50%, 0px);
+    z-index: 0;
+}
+
+.modal.show {
+    max-height: 85%;
+    bottom: 0px;
+    opacity: 1;
+    overflow-y: auto;
+    transition: bottom 300ms ease-in-out, opacity 600ms ease-in-out;
+    z-index: 9999;
+}
+
 /* Settings - Account */
 .notice {
-    background: rgb(250, 250, 250);
+    background: #fafafa;
     border-radius: 3px;
     font-size: 0.75rem;
     line-height: 1.25rem;

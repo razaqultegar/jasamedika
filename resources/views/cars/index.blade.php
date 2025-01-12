@@ -3,23 +3,23 @@
 @section('content')
 <div class="pb-[66px]">
     <div class="my-0 flex justify-around">
-        <div class="relative flex w-full cursor-pointer items-center justify-center border-r border-solid border-[#e8e8e8] p-[0.5em] text-center text-[12px] font-semibold">
+        <div class="relative flex w-full cursor-pointer items-center justify-center border-r border-solid border-[#e8e8e8] p-[0.5em] text-center text-[12px] font-semibold" data-toggle="modal" data-target="#filterbymerk">
             <div class="flex justify-end">
                 <span class="mr-[5px]">
                     <img src="{{ asset('medias/svg/icon_category.svg') }}" alt="category">
                 </span>
-                <span class="relative top-[4px]">Kategori</span>
+                <span class="relative top-[4px]">Merk</span>
             </div>
         </div>
-        <div class="flex w-full cursor-pointer items-center justify-center p-[0.5em] text-center text-[12px] font-semibold">
+        <div class="flex w-full cursor-pointer items-center justify-center p-[0.5em] text-center text-[12px] font-semibold" data-toggle="modal" data-target="#filterbymodel">
             <div class="flex justify-end">
                 <span>
                     <img src="{{ asset('medias/svg/icon_filter.svg') }}" alt="filter">
                 </span>
-                <span class="relative top-[4px]">Filter</span>
+                <span class="relative top-[4px]">Model</span>
             </div>
         </div>
-        <div class="flex w-full cursor-pointer items-center justify-center border-l border-solid border-[#e8e8e8] p-[0.5em] text-center text-[12px] font-semibold">
+        <div class="flex w-full cursor-pointer items-center justify-center border-l border-solid border-[#e8e8e8] p-[0.5em] text-center text-[12px] font-semibold" data-toggle="modal" data-target="#sort">
             <div class="flex justify-end">
                 <span class="mr-[5px]">
                     <img src="{{ asset('medias/svg/icon_sort.svg') }}" alt="sort">
@@ -53,6 +53,10 @@
     </div>
 </div>
 
+@include('cars.modals.merk')
+@include('cars.modals.model')
+@include('cars.modals.sort')
+
 @auth
 <div class="fixed bottom-24 z-[2] w-480 -mx-4 flex justify-end">
     <a href="{{ route('cars.create') }}" class="block flex h-10 w-10 items-center justify-center rounded-full border-none bg-white shadow-xl mr-5">
@@ -61,3 +65,7 @@
 </div>
 @endauth
 @endsection
+
+@push('scripts')
+<script type="text/javascript" src="{{ asset('js/pages/cars.min.js') }}"></script>
+@endpush
