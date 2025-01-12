@@ -19,7 +19,6 @@ use App\Http\Controllers\Auth\RegisteredUserController;
 */
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
-Route::get('mobil', [CarController::class, 'index'])->name('cars.index');
 Route::get('akun-saya', [AccountController::class, 'index'])->name('account.index');
 
 Route::middleware('guest')->group(function () {
@@ -31,7 +30,9 @@ Route::middleware('guest')->group(function () {
 
 Route::middleware('auth')->group(function () {
     Route::get('pesan', [HomeController::class, 'checkout'])->name('checkout');
+    Route::post('pesan', [HomeController::class, 'store']);
 
+    Route::get('mobil', [CarController::class, 'index'])->name('cars.index');
     Route::get('mobil/baru', [CarController::class, 'create'])->name('cars.create');
     Route::post('mobil/baru', [CarController::class, 'store']);
 

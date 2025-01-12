@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Carbon\Carbon;
+
 use App\Models\Car;
+use App\Models\Order;
 
 class HomeController extends Controller
 {
@@ -16,43 +17,40 @@ class HomeController extends Controller
         $query = Car::query();
 
         if ($request->has('date_range') && !empty($request->date_range)) {
-            session()->put('date_range', $request->date_range);
             $dates = explode(' - ', $request->date_range);
+        } else {
+            $startDate = now()->format('Y-m-d');
+            $endDate = now()->addDay()->format('Y-m-d');
+            $dates = [$startDate, $endDate];
+        }
 
-            if (count($dates) === 2) {
-                $startDate = $dates[0];
-                $endDate = $dates[1];
+        if (count($dates) === 2) {
+            $startDate = $dates[0];
+            $endDate = $dates[1];
 
-                if ($request->has('merk') && !empty($request->merk)) {
-                    $query->where('merk', $request->merk);
-                }
+            if ($request->query('merk')) {
+                $merk = explode(',', $request->merk);
+                $query->whereIn('merk', $merk);
+            }
 
-                if ($request->has('model') && !empty($request->model)) {
-                    $query->where('model', $request->model);
-                }
+            if ($request->query('model')) {
+                $model = explode(',', $request->model);
+                $query->whereIn('model', $model);
+            }
 
-                $query->with(['orders' => function ($q) use ($startDate, $endDate) {
-                    $q->where(function ($subQuery) use ($startDate, $endDate) {
-                        $subQuery->whereBetween('start_date', [$startDate, $endDate])
-                            ->orWhereBetween('end_date', [$startDate, $endDate])
-                            ->orWhere(function ($innerQuery) use ($startDate, $endDate) {
-                                $innerQuery->where('start_date', '<=', $startDate)
-                                    ->where('end_date', '>=', $endDate);
-                            });
-                    });
-                }]);
+            $query->with(['orders' => function ($q) use ($startDate, $endDate) {
+                $q->where(function ($subQuery) use ($startDate, $endDate) {
+                    $subQuery->whereBetween('start_date', [$startDate, $endDate])
+                        ->orWhereBetween('end_date', [$startDate, $endDate])
+                        ->orWhere(function ($innerQuery) use ($startDate, $endDate) {
+                            $innerQuery->where('start_date', '<=', $startDate)
+                                ->where('end_date', '>=', $endDate);
+                        });
+                });
+            }]);
 
-                if ($request->has('available') && !empty($request->available)) {
-                    $query->orderByRaw('(SELECT COUNT(*) FROM orders WHERE orders.car_id = cars.id AND ((orders.start_date BETWEEN ? AND ?) OR (orders.end_date BETWEEN ? AND ?) OR (orders.start_date <= ? AND orders.end_date >= ?))) ASC', [$startDate, $endDate, $startDate, $endDate, $startDate, $endDate]);
-                }
-
-                $start = Carbon::createFromFormat('Y-m-d', $startDate);
-                $end = Carbon::createFromFormat('Y-m-d', $endDate);
-                $days = $start->diffInDays($end);
-
-                session()->put('start', $start->format('d/m/Y'));
-                session()->put('end', $end->format('d/m/Y'));
-                session()->put('days', $days);
+            if ($request->query('available')) {
+                $query->orderByRaw('(SELECT COUNT(*) FROM orders WHERE orders.car_id = cars.id AND ((orders.start_date BETWEEN ? AND ?) OR (orders.end_date BETWEEN ? AND ?) OR (orders.start_date <= ? AND orders.end_date >= ?))) ASC', [$startDate, $endDate, $startDate, $endDate, $startDate, $endDate]);
             }
         }
 
@@ -72,5 +70,16 @@ class HomeController extends Controller
         $data['order'] = Car::where('id', $request->query('id'))->first();
 
         return view('checkout', $data);
+    }
+
+    public function store(Request $request)
+    {
+        $order = Order::create($request->all());
+
+        if ($order) {
+            return response()->json(['message' => 'Pesanan baru berhasil ditambahkan'], 201);
+        }
+
+        return response()->json(['message' => 'Terjadi kesalahan, silahkan coba lagi'], 500);
     }
 }
