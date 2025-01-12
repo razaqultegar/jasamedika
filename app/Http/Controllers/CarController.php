@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Car;
+use Carbon\Carbon;
 
 class CarController extends Controller
 {
@@ -14,6 +15,7 @@ class CarController extends Controller
 
         if ($request->has('date_range') && !empty($request->date_range)) {
             $dates = explode(' - ', $request->date_range);
+
             if (count($dates) === 2) {
                 $startDate = $dates[0];
                 $endDate = $dates[1];
@@ -29,6 +31,14 @@ class CarController extends Controller
                             });
                     });
                 });
+
+                $start = Carbon::createFromFormat('Y-m-d', $startDate);
+                $end = Carbon::createFromFormat('Y-m-d', $endDate);
+                $days = $start->diffInDays($end);
+
+                session()->put('start', $start->format('d/m/Y'));
+                session()->put('end', $end->format('d/m/Y'));
+                session()->put('days', $days);
             }
         }
 

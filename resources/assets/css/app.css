@@ -369,6 +369,27 @@ fieldset .invalid-feedback {
     z-index: 9999;
 }
 
+/* Checkout */
+#cart div {
+    border-top: 1px solid #f7f7f7;
+    text-align: right;
+    display: block;
+    padding-top: 10px;
+    margin-top: 10px;
+}
+
+#cart div:first-child {
+    border-top: none;
+    padding-top: 0px;
+    margin-top: 0px;
+}
+
+#cart div::before {
+    content: attr(data-title);
+    display: inline-block;
+    float: left;
+}
+
 /* Settings - Account */
 .notice {
     background: #fafafa;

@@ -30,6 +30,8 @@ Route::middleware('guest')->group(function () {
 });
 
 Route::middleware('auth')->group(function () {
+    Route::get('pesan', [HomeController::class, 'checkout'])->name('checkout');
+
     Route::get('mobil/baru', [CarController::class, 'create'])->name('cars.create');
     Route::post('mobil/baru', [CarController::class, 'store']);
 
